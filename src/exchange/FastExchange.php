@@ -24,6 +24,11 @@ final class FastExchange
 
     private $appcode = '';
 
+    public function __construct($config)
+    {
+        $this->appcode = $config['appcode'];
+    }
+
     /**
      * 汇率转换接口
      *

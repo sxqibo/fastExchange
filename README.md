@@ -3,6 +3,28 @@
 ## 接口地址
 https://market.console.aliyun.com/imageconsole/index.htm?accounttraceid=71dce6a62238496b8fb20bfd7a68808avinr#/?_k=mg3hsc
 
+# 使用方法
+
+引入
+```shell
+composer require sxqibo/fastexchange
+```
+
+实例化
+```php
+$config = [
+    'appcode' => '你的 appcode',
+];
+
+$weather = new FastExchange($config);
+```
+
+## 支持接口
+
+1. getConvert: 汇率转换接口
+2. getCurrency: 所有货币查询接口
+3. getSingle: 单个货币查询接口
+
 ## 报错处理
 
 若出现错误如下：

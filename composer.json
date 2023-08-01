@@ -1,6 +1,6 @@
 {
     "name": "sxqibo/fastexchange",
-    "description": "",
+    "description": "汇率转换",
     "type": "library",
     "autoload": {
         "files": [],
@@ -18,7 +18,7 @@
         "guzzlehttp/guzzle": "7.7.x-dev"
     },
     "keywords": [
-        "",
+        "汇率转换",
         "PHP"
     ],
     "minimum-stability": "dev",

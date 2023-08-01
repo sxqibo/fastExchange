@@ -4,7 +4,11 @@ use sxqibo\fastexchange\exchange\FastExchange;
 
 require __DIR__ . '/../vendor/autoload.php';
 
-$client = new FastExchange();
+$config = [
+    'appcode' => ''
+];
+
+$client = new FastExchange($config);
 
 var_dump($client->getConvert('CNY', '10', 'USD'));
 var_dump($client->getCurrency());
