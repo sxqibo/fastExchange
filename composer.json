@@ -1,0 +1,26 @@
+{
+    "name": "sxqibo/fastexchange",
+    "description": "",
+    "type": "library",
+    "autoload": {
+        "files": [],
+        "psr-4": {
+            "sxqibo\\fastexchange\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "yun",
+            "email": "1427596852@qq.com"
+        }
+    ],
+    "require": {
+        "guzzlehttp/guzzle": "7.7.x-dev"
+    },
+    "keywords": [
+        "",
+        "PHP"
+    ],
+    "minimum-stability": "dev",
+    "license": "MIT"
+}
