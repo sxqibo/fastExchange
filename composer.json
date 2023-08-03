@@ -1,5 +1,5 @@
 {
-    "name": "sxqibo/fastexchange",
+    "name": "sxqibo/fast-exchange",
     "description": "汇率转换",
     "type": "library",
     "autoload": {
