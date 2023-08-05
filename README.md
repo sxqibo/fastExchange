@@ -7,7 +7,7 @@ https://market.console.aliyun.com/imageconsole/index.htm?accounttraceid=71dce6a6
 
 引入
 ```shell
-composer require sxqibo/fastexchange
+composer require sxqibo/fast-exchange
 ```
 
 实例化
