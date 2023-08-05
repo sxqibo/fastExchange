@@ -1,11 +1,11 @@
 <?php
 
-namespace sxqibo\fastexchange\exchange;
+namespace Sxqibo\FastExchange;
 
 use Exception;
 use GuzzleHttp\Client;
 
-final class FastExchange
+final class JisuExchange
 {
     const HOST = 'https://jisuhuilv.market.alicloudapi.com';
 
