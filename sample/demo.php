@@ -5,7 +5,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
 use Sxqibo\FastExchange\JisuExchange;
 
 // 需要替换为有效的阿里云市场AppCode
-$appCode = '4979dea4ce2f43f2ba046cc297f5414e';
+$appCode = '';
 
 try {
     $exchange = new JisuExchange($appCode);
