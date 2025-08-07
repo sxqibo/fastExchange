@@ -2,98 +2,96 @@
 
 namespace Sxqibo\FastExchange;
 
-use Exception;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
 
-final class JisuExchange
+class JisuExchange
 {
-    const HOST = 'https://jisuhuilv.market.alicloudapi.com';
+    private $appCode;
+    private $client;
 
-    /**
-     * 汇率转换接口
-     */
-    const CONVERT = '/exchange/convert';
-    /**
-     * 所有货币查询接口
-     */
-    const CURRENCY = '/exchange/currency';
-    /**
-     * 单个货币查询接口
-     */
-    const SINGLE = '/exchange/single';
-
-    private $appcode = '';
-
-    public function __construct($config)
+    public function __construct($appCode)
     {
-        $this->appcode = $config['appcode'];
+        $this->appCode = $appCode;
+        $this->client = new Client([
+            'base_uri' => 'https://jisuhuilv.market.alicloudapi.com',
+            'timeout' => 30,
+        ]);
     }
 
     /**
-     * 汇率转换接口
+     * 货币转换
      *
-     * @param string $from 要换算的单位（所有货币接口中获取）
-     * @param string $amount 数量
-     * @param string $to 换算后的单位（所有货币接口中获取）
-     * @return string
+     * @param string $from
+     * @param string $amount
+     * @param string $to
+     * @return array
+     * @throws GuzzleException
      */
-    public function getConvert(string $from, string $amount, string $to): string
+    public function getConvert(string $from, string $amount, string $to): array
     {
-        if ((!isset($from) || empty($from))
-            || (!isset($amount) || empty($amount))
-            || (!isset($to) || empty($to))) {
-            throw new Exception('要换算的单位、数量、换算后的单位 不能为空');
-        }
-
-        $query = [
+        $params = [
             'from' => $from,
             'amount' => $amount,
             'to' => $to
         ];
 
-        return $this->request($query, self::CONVERT);
+        return $this->request($params, '/exchange/convert');
     }
 
     /**
-     * 所有货币查询接口
+     * 获取货币列表
      *
-     * @return string
+     * @return array
+     * @throws GuzzleException
      */
-    public function getCurrency(): string
+    public function getCurrencyList(): array
     {
-        return $this->request([], self::CURRENCY);
+        return $this->request([], '/exchange/currency');
     }
 
     /**
-     * 单个货币查询接口
+     * 获取汇率
      *
-     * @param string $currency 货币（所有货币查询接口中获取）
-     * @return string
+     * @param string $from
+     * @param string $to
+     * @return array
+     * @throws GuzzleException
      */
-    public function getSingle(string $currency): string
+    public function getRate(string $from, string $to): array
     {
-        if (!isset($currency) || empty($currency)) {
-            throw new Exception('货币 不能为空');
-        }
-
-        $query = ['currency' => $currency];
-
-        return $this->request($query, self::SINGLE);
-    }
-
-    private function request($query, string $apiUri): string
-    {
-        $headers = [
-            'Authorization' => 'APPCODE ' . $this->appcode
+        $params = [
+            'from' => $from,
+            'to' => $to
         ];
 
-        $uri = http_build_query($query);
+        return $this->request($params, '/exchange/rate');
+    }
 
-        $client   = new Client();
-        $response = $client->request('GET', self::HOST . $apiUri . '?' . $uri, [
-            'headers' => $headers
-        ]);
+    /**
+     * 发起请求
+     *
+     * @param array $params
+     * @param string $uri
+     * @return array
+     * @throws GuzzleException
+     */
+    private function request(array $params, string $uri): array
+    {
+        $options = [
+            'headers' => [
+                'Authorization' => 'APPCODE ' . $this->appCode,
+                'Content-Type' => 'application/json',
+            ]
+        ];
 
-        return (string)$response->getBody();
+        if (!empty($params)) {
+            $options['query'] = $params;
+        }
+
+        $response = $this->client->request('GET', $uri, $options);
+        $contents = $response->getBody()->getContents();
+
+        return json_decode($contents, true);
     }
 }

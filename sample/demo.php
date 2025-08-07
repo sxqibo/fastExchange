@@ -1,15 +1,19 @@
 <?php
 
+require_once __DIR__ . '/../vendor/autoload.php';
+
 use Sxqibo\FastExchange\JisuExchange;
 
-require __DIR__ . '/../vendor/autoload.php';
+// 需要替换为有效的阿里云市场AppCode
+$appCode = '4979dea4ce2f43f2ba046cc297f5414e';
 
-$config = [
-    'appcode' => ''
-];
-
-$client = new JisuExchange($config);
-
-var_dump($client->getConvert('CNY', '10', 'USD'));
-var_dump($client->getCurrency());
-var_dump($client->getSingle('CNY'));
+try {
+    $exchange = new JisuExchange($appCode);
+    
+    // 货币转换
+    $result = $exchange->getConvert('CNY', '10', 'USD');
+    print_r($result);
+    
+} catch (Exception $e) {
+    echo 'Error: ' . $e->getMessage();
+}

@@ -15,7 +15,7 @@
         }
     ],
     "require": {
-        "guzzlehttp/guzzle": "6.5.8"
+        "guzzlehttp/guzzle": "7.9.*"
     },
     "keywords": [
         "汇率转换",
